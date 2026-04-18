@@ -1,0 +1,92 @@
+# scaffoldrack/blog — .gitignore
+#
+# Hugo static site for thescaffoldrack.com.
+
+# ─────────────────────────────────────────────────────────
+# Hugo
+# ─────────────────────────────────────────────────────────
+
+# Hugo build output — never committed, regenerated at deploy time
+public/
+
+# Hugo resources cache (generated images, etc.)
+resources/_gen/
+
+# Hugo build lock
+.hugo_build.lock
+
+# ─────────────────────────────────────────────────────────
+# Node / asset pipeline (if using Tailwind, PostCSS, etc.)
+# ─────────────────────────────────────────────────────────
+node_modules/
+package-lock.json.bak
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ─────────────────────────────────────────────────────────
+# Workspace
+# ─────────────────────────────────────────────────────────
+tmp/*
+!tmp/.gitkeep
+
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# ─────────────────────────────────────────────────────────
+# Secrets (defensive)
+# ─────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.local
+
+# Hugo environment files
+.env.production
+.env.development
+
+# ─────────────────────────────────────────────────────────
+# OS junk
+# ─────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.directory
+.Trash-*
+
+# ─────────────────────────────────────────────────────────
+# Editors and IDEs
+# ─────────────────────────────────────────────────────────
+.vscode/
+*.code-workspace
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+Session.vim
+
+# ─────────────────────────────────────────────────────────
+# Backups and temp files
+# ─────────────────────────────────────────────────────────
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+
+# ─────────────────────────────────────────────────────────
+# Deployment artifacts
+# ─────────────────────────────────────────────────────────
+deploy/
+*.deploy.zip
