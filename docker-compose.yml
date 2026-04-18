@@ -1,0 +1,48 @@
+# Dev loop: docker compose up (or `make dev`)
+# ---------------------------------------------
+# Starts Hugo's live-reload server in a container with the working
+# directory mounted in. Edit markdown on the host, see changes in the
+# browser at http://localhost:1313.
+#
+# No Hugo binary on the host. Everything Hugo-related runs in the
+# container. This is the single source of truth for what "run Hugo" means
+# on this project.
+#
+# Build-once: `docker compose build` builds the image locally. Subsequent
+# `docker compose up` runs use the cached image. If you change the
+# Dockerfile (e.g. bump Hugo version), run `make image-build` to force
+# a rebuild from scratch.
+#
+# Note: environment variables are named USER_UID/USER_GID instead of
+# UID/GID because bash treats UID as read-only; Make can't set it.
+
+services:
+  hugo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: scaffoldrack/hugo-dev:local
+    container_name: scaffoldrack-hugo-dev
+    ports:
+      - "1313:1313"
+    volumes:
+      # The whole site directory is mounted in. Hugo watches for changes
+      # and rebuilds automatically. Edits on the host show up in the
+      # container instantly.
+      - .:/site
+    # Use the current user's UID/GID so any files Hugo creates (cache,
+    # resources/_gen/, new posts) are owned by you on the host, not root.
+    # Fallback to 1000 if not set (matches the Dockerfile's default user).
+    user: "${USER_UID:-1000}:${USER_GID:-1000}"
+    # Dev command: live reload, drafts built, no fast-render caching
+    # (disableFastRender catches more issues that only appear in full builds).
+    command:
+      - server
+      - --bind=0.0.0.0
+      - --buildDrafts
+      - --buildFuture
+      - --disableFastRender
+      - --baseURL=http://localhost:1313
+    # Restart on crash, but not on clean exit (so `docker compose down`
+    # actually stops things).
+    restart: unless-stopped

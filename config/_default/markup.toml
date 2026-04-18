@@ -1,0 +1,19 @@
+# Markup configuration required by Congo
+# Reference: https://jpanther.github.io/congo/docs/configuration/
+
+[goldmark.renderer]
+  unsafe = true  # Allow raw HTML in markdown (needed for some shortcodes)
+
+[highlight]
+  noClasses = false  # Use CSS classes so our color scheme can style code
+  codeFences = true
+  guessSyntax = true
+  lineNoStart = 1
+  lineNos = true
+  lineNumbersInTable = false
+  tabWidth = 2
+
+[tableOfContents]
+  endLevel = 4
+  ordered = false
+  startLevel = 2

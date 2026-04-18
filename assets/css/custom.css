@@ -1,0 +1,111 @@
+/* ----------------------------------------------------------------------------
+   Force dark mode
+   ----------------------------------------------------------------------------
+   Congo's appearance switcher requires pre-compiled Tailwind dark-variant
+   utilities, which only exist for Congo's built-in schemes (not our custom
+   scaffoldrack scheme). Rather than rebuild Congo's CSS via npm+Tailwind
+   CLI, we force dark-mode colors directly here. One-way door — no toggle.
+   Revisit if/when we decide to wire up a full Tailwind build step.
+   ---------------------------------------------------------------------------- */
+
+html, body {
+  background-color: #1c273b !important;  /* brand navy */
+  color: #e6eff4 !important;              /* brand light-grey */
+}
+
+/* Headings and links pick up color from body; ensure they look right */
+h1, h2, h3, h4, h5, h6 {
+  color: #e6eff4 !important;
+}
+
+a {
+  color: #faa437;  /* brand orange for links — stands out on navy */
+}
+
+a:hover {
+  color: #fdc879;  /* lighter orange on hover */
+}
+
+/* Header nav links in dark context */
+header nav a {
+  color: #e6eff4 !important;
+}
+
+/* Horizontal rules sit subtly on navy */
+hr:not(.scaffoldrack-intro-divider) {
+  border-color: #6a7a8a !important;  /* brand medium-grey */
+}
+
+/* ============================================================================
+   Scaffoldrack custom styles
+   ============================================================================
+   Congo picks up assets/css/custom.css automatically — no params.toml entry
+   needed. Keep this file small and targeted. If it grows past ~100 lines
+   or starts feeling like a bag of hacks, graduate specific pieces into
+   proper partial overrides or upstream into the color scheme.
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   Homepage intro band
+   ----------------------------------------------------------------------------
+   Two-column flex layout: logo on the left in its own column, identity
+   and description text in a separate column that never overlaps the logo.
+   Logo is vertically centered relative to the text block.
+   ---------------------------------------------------------------------------- */
+
+.scaffoldrack-intro {
+  display: flex;
+  align-items: center;       /* vertically center logo relative to text */
+  gap: 2rem;                 /* space between logo column and text column */
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.scaffoldrack-intro-logo {
+  width: 300px;
+  height: auto;
+  flex-shrink: 0;            /* logo keeps its width; text column absorbs resizes */
+  border-radius: 0.5rem;
+}
+
+.scaffoldrack-intro-text {
+  flex: 1 1 auto;            /* text column takes remaining space */
+  min-width: 0;              /* lets long prose wrap instead of overflowing */
+}
+
+/* Short divider between identity (name/headline) and site description.
+   Intentionally narrower than the full-width <hr> below the intro block —
+   this one is a soft section break, not a hard one. Brand orange accent
+   to add a small hit of brand color to the identity area. */
+.scaffoldrack-intro-divider {
+  width: 12rem;                                                /*doubled from 3rm -  ~96px */
+  margin: 1rem 0;
+  border: 0;
+/*  border-top: 2px solid var(--color-primary-500, #faa437);    /* brand orange */
+/*  border-top: 3px solid #faa437;    /* brand orange */
+  border-top: 3px solid #6fc040;    /* brand green */
+  opacity: 0.6;
+}
+
+.scaffoldrack-intro-links {
+  /* Congo's author-links partial renders a row of icon links — inherits
+     the site's default link styling. No overrides needed right now. */
+}
+
+/* ----------------------------------------------------------------------------
+   Mobile breakpoint — stack the logo above the text rather than side-by-side
+   ---------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .scaffoldrack-intro {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .scaffoldrack-intro-logo {
+    width: 200px;
+  }
+  .scaffoldrack-intro-divider {
+    margin-left: auto;
+    margin-right: auto;      /* center the short divider when stacked */
+  }
+}

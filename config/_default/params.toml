@@ -1,0 +1,133 @@
+# Congo theme parameters
+# Reference: https://jpanther.github.io/congo/docs/configuration/
+
+# Use our custom scaffoldrack color scheme (defined in
+# assets/css/schemes/scaffoldrack.css). This replaces Congo's default scheme.
+colorScheme = "scaffoldrack"
+
+# Default appearance: dark (aligns with our navy-first brand).
+# "auto" respects OS preference; set to "dark" to force dark by default with
+# a toggle for light.
+defaultAppearance = "dark"
+autoSwitchAppearance = false
+
+# Mermaid diagrams: enable for architecture diagrams in posts
+mermaid = true
+
+# KaTeX math rendering: leave off until needed
+math = false
+
+# RSS icon in header
+rss.copyright = "Copyright © 2026 Andrew Krull. Code under Apache 2.0, content under CC-BY-4.0."
+
+# Description shown in site metadata and social cards
+description = "A hands-on platform for building and operating a modern homelab — documented publicly at thescaffoldrack.com"
+
+# ============================================================================
+# Header configuration
+# ============================================================================
+# The logo lives inline on the homepage (see layouts/partials/home/custom.html),
+# not in the header. This keeps the header tight and the logo's size-and-detail
+# can anchor the homepage content instead of creating a gap next to the nav.
+# To put the logo back in the header: uncomment the logo lines below and set
+# showTitle = false. You may also want to shrink it via assets/css/custom.css.
+[header]
+  layout = "basic"             # basic | hamburger | hybrid | custom
+  # logo = "img/logo.png"
+  # logoDark = "img/logo_dark.png"
+  showTitle = false            # nav-only header; site title lives in the homepage logo
+  showRSS = true
+  showThemeSwitch = true
+  showSearch = true
+
+# ============================================================================
+# Footer configuration
+# ============================================================================
+[footer]
+  showCopyright = true
+  showThemeAttribution = true
+  showAppearanceSwitch = false  # already in header
+  showScrollToTop = true
+
+# ============================================================================
+# Home page configuration
+# ============================================================================
+[homepage]
+  layout = "custom"            # page | profile | custom
+  showRecent = true
+  recentLimit = 7              # current Congo param name (was showRecentItems)
+  showMoreLink = true
+  showMoreLinkDest = "/posts/"
+  cardView = false
+  cardViewScreenWidth = false
+  layoutBackgroundBlur = false
+
+# ============================================================================
+# Article configuration (defaults for all posts)
+# ============================================================================
+[article]
+  showDate = true
+  showDateUpdated = false
+  showAuthor = true
+  showBreadcrumbs = false
+  showDraftLabel = true
+  showEdit = false            # turn on later if we want "edit on GitHub" links
+  # editURL = "https://github.com/scaffoldrack/blog/tree/main/content/"
+  # editAppendPath = true
+  showHeadingAnchors = true
+  showPagination = true
+  invertPagination = false
+  showReadingTime = true
+  showTableOfContents = true
+  showTaxonomies = true
+  showWordCount = false
+  showSummary = true
+  sharingLinks = false         # off by default; matches "no comments" ethos
+
+# ============================================================================
+# List page configuration (post index, tag pages, etc.)
+# ============================================================================
+[list]
+  showBreadcrumbs = false
+  showSummary = true
+  showTableOfContents = false
+  showCards = false
+  groupByYear = true
+  paginationWidth = 1
+
+# ============================================================================
+# Sitemap
+# ============================================================================
+[sitemap]
+  excludedKinds = ["taxonomy", "term"]
+
+# ============================================================================
+# Taxonomy pages
+# ============================================================================
+[taxonomy]
+  showTermCount = true
+
+# ============================================================================
+# Analytics — GoatCounter
+# Signed up at https://<your-code>.goatcounter.com — code goes in the URL.
+# Placeholder below; replace with your actual GoatCounter endpoint.
+# ============================================================================
+# [fathomAnalytics]   # Not using
+# [plausibleAnalytics]  # Not using
+# GoatCounter is wired in via a custom partial (layouts/partials/extend-head.html)
+# since Congo doesn't have a built-in GoatCounter option. See that file.
+
+# ============================================================================
+# Author profile (shown on article pages and homepage with profile layout)
+# ============================================================================
+[author]
+  name = "Andrew Krull"
+  image = ""                   # put an avatar at assets/img/author.jpg later
+  headline = "Sr. DevOps engineer"
+  bio = "Building and operating a modern homelab in public. 20+ years open source sysadmin. Writing about platform engineering, AI infrastructure, and the honest tradeoffs of self-hosting."
+  links = [
+    { github = "https://github.com/scaffoldrack" },
+    # Add more as handles get claimed:
+    # { mastodon = "https://fosstodon.org/@scaffoldrack" },
+    # { bluesky = "https://bsky.app/profile/thescaffoldrack.com" },
+  ]

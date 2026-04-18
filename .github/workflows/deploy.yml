@@ -1,0 +1,73 @@
+name: Deploy Hugo site to Pages
+
+# Triggers: push to main, or manual from the Actions UI.
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Permissions scoped to what Pages deployment needs. Read-only elsewhere.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one concurrent deploy; cancel in-progress runs on new pushes.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history so Hugo's .Lastmod (git-derived) works.
+          fetch-depth: 0
+          # Pull Congo theme submodule.
+          submodules: recursive
+
+      # Build the Hugo image from the repo's Dockerfile.
+      # This is the GitOps payoff: the same image we use locally for
+      # `make build` is the one CI uses. Hugo version is pinned in the
+      # Dockerfile and there's only one place to change it. If `make build`
+      # passes locally, the CI build produces byte-identical output.
+      - name: Build Hugo container
+        run: docker build -t scaffoldrack-hugo:ci .
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build site
+        env:
+          TZ: America/Chicago
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -v "${PWD}:/site" \
+            -e HUGO_ENVIRONMENT=production \
+            -e TZ=America/Chicago \
+            --entrypoint hugo \
+            scaffoldrack-hugo:ci \
+            --gc --minify \
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

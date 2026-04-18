@@ -1,0 +1,75 @@
+/*
+  Scaffoldrack color scheme for Congo
+  =====================================
+
+  Congo uses Tailwind with CSS-variable-backed color scales. Each scale has
+  steps 50 (lightest) through 900 (darkest). Congo expects three palettes:
+  `neutral`, `primary`, `secondary`.
+
+  Brand palette (from BRAND.md):
+    --sr-dark-blue:   #1c273b   navy       (canonical background)
+    --sr-orange:      #faa437   orange     (signature color)
+    --sr-green:       #6fc040   green      (accent only — indicators, alive states)
+    --sr-medium-grey: #6a7a8a   grey       (body text on light, dividers)
+    --sr-light-grey:  #e6eff4   light grey (surfaces)
+
+  Mapping rationale:
+    - `neutral` = warm-cool grey scale built around medium-grey and light-grey,
+      anchored at navy on the dark end. This gives us the canonical navy
+      background when Congo requests neutral-900.
+    - `primary` = orange scale. Primary links, active states, buttons.
+    - `secondary` = green scale. Accent-only per BRAND.md — Congo uses secondary
+      sparingly so this matches.
+
+  Intermediate steps were derived by mixing anchor colors toward white/black in
+  perceptually-spaced increments, then adjusted by eye for contrast. Not
+  scientifically perfect — revisit if any text-on-surface combo fails WCAG AA.
+
+  Derived neutrals (closes out one of the §7 open questions in CONTEXT.md):
+    - Light-theme background:  #ffffff (pure white — cleanest reading surface)
+    - Light-theme body text:   #1c273b (the brand navy itself — no separate near-black needed)
+    - Dark-theme background:   #1c273b (brand navy)
+    - Dark-theme body text:    #e6eff4 (brand light-grey — cool-tinted, pairs with navy)
+
+  This keeps the derived-neutrals question closed without adding a sixth or
+  seventh color. The palette stays tight: five values, used consistently.
+*/
+
+:root {
+  /* Neutral — greyscale spine with navy at the dark end */
+  --color-neutral:     255 255 255;   /* pure white (used for light-mode backgrounds) */
+  --color-neutral-50:  246 249 251;   /* very subtle off-white */
+  --color-neutral-100: 230 239 244;   /* brand light-grey — surfaces/cards */
+  --color-neutral-200: 208 221 229;
+  --color-neutral-300: 178 193 204;
+  --color-neutral-400: 138 153 167;
+  --color-neutral-500: 106 122 138;   /* brand medium-grey */
+  --color-neutral-600:  80  95 112;
+  --color-neutral-700:  58  74  93;
+  --color-neutral-800:  40  54  72;
+  --color-neutral-900:  28  39  59;   /* brand navy #1c273b */
+
+  /* Primary — orange scale, anchored at brand orange at 500 */
+  --color-primary-50:  254 247 234;
+  --color-primary-100: 253 236 204;
+  --color-primary-200: 252 217 152;
+  --color-primary-300: 251 196  99;
+  --color-primary-400: 250 176  61;
+  --color-primary-500: 250 164  55;   /* brand orange #faa437 */
+  --color-primary-600: 228 141  37;
+  --color-primary-700: 190 114  24;
+  --color-primary-800: 142  84  14;
+  --color-primary-900:  99  58   8;
+
+  /* Secondary — green scale, anchored at brand green at 500 */
+  --color-secondary-50:  243 250 235;
+  --color-secondary-100: 226 243 205;
+  --color-secondary-200: 197 230 159;
+  --color-secondary-300: 159 213 109;
+  --color-secondary-400: 124 199  74;
+  --color-secondary-500: 111 192  64;   /* brand green #6fc040 */
+  --color-secondary-600:  91 163  45;
+  --color-secondary-700:  71 128  34;
+  --color-secondary-800:  52  94  24;
+  --color-secondary-900:  35  62  16;
+}

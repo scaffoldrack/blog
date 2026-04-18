@@ -1,0 +1,48 @@
+baseURL = "https://thescaffoldrack.com/"
+title = "The Scaffold Rack"
+defaultContentLanguage = "en"
+theme = "congo"
+
+# Enable emoji support in content
+enableEmoji = true
+
+# Enable robots.txt generation
+enableRobotsTXT = true
+
+# Don't include drafts or future-dated posts in production builds
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+# Summary length for post previews (in words)
+summaryLength = 30
+
+# Pagination
+[pagination]
+  pagerSize = 10
+
+# Taxonomy configuration — tags and series as first-class
+[taxonomies]
+  tag = "tags"
+  series = "series"
+
+# Permalinks — /posts/year/slug/ keeps URLs stable and groupable
+[permalinks]
+  posts = "/posts/:year/:slug/"
+
+# Congo-required output formats (adds JSON for client-side search)
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# Minify HTML/CSS/JS in production builds
+[minify]
+  minifyOutput = true
+
+# Site-wide parameters — Congo looks for params in params.toml, these are extras
+[params]
+  # ...lives in params.toml
+
+# Security: allow GoatCounter script
+[security]
+  [security.funcs]
+    getenv = ["^HUGO_", "^CI$"]

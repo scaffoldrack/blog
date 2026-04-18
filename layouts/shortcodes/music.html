@@ -1,0 +1,23 @@
+{{- /* Music shortcode. See README.md in this directory for usage. */ -}}
+{{- $name := .Get 0 -}}
+{{- $url  := .Get 1 -}}
+{{- if and $name $url -}}
+<p class="music-note" style="
+    font-style: italic;
+    font-size: 0.9em;
+    margin: 0.5em 0 1.5em 0;
+    color: var(--color-neutral-500, #6a7a8a);
+  ">
+  <span aria-hidden="true" style="
+      color: #faa437;
+      font-style: normal;
+      margin-right: 0.35em;
+    ">♫</span>
+  <span>Writing to </span>
+  <a href="{{ $url | safeURL }}"
+     rel="noopener noreferrer"
+     target="_blank"
+     style="color: inherit; text-decoration: underline; text-decoration-style: dotted;"
+  >{{ $name }}</a>
+</p>
+{{- end -}}

@@ -1,0 +1,96 @@
+{{/*
+  Scaffoldrack custom homepage layout.
+  =====================================
+  Inline-logo variant: the site logo lives in the homepage content (not the
+  header), next to an identity block in a two-column flex layout.
+
+  Structure:
+    1. Intro band — flex row: logo on left, identity+description on right
+       - Name + headline (one-liner bio from params.toml)
+       - Short orange divider
+       - Site description from content/_index.md
+       - Social links (GitHub, etc — auto-rendered from author.links)
+    2. Horizontal rule (full width)
+    3. Recent posts list — reuses Congo's recent-articles.html partial
+
+  Why no Congo profile.html partial:
+    The stock partial centers everything and includes an avatar slot we're
+    not using. Our identity block is left-aligned next to the floated logo,
+    so we render name/headline/links inline here. Social links still use
+    Congo's author-links.html partial so new link types (mastodon, bluesky)
+    added to params.toml pick up automatically.
+
+  Layout tuning (all in assets/css/custom.css):
+    - Logo width: 340px desktop / 200px mobile (see .scaffoldrack-intro-logo)
+    - Column gap: 2rem (see .scaffoldrack-intro gap)
+    - Divider between identity and site description: short orange bar
+      (see .scaffoldrack-intro-divider)
+
+  Upgrade-safety:
+    - No Congo partials copied verbatim; theme updates flow through
+    - Only CSS classes used are in custom.css or Tailwind utilities Congo
+      already ships
+    - To revert: set homepage.layout = "profile" in params.toml
+*/}}
+
+<article class="w-full">
+
+  {{/* Intro band: flex row with logo left, identity+description right */}}
+  <section class="scaffoldrack-intro">
+
+    {{/* Logo — resized via Hugo Pipes so the browser doesn't get the
+         full 1022px source. */}}
+    {{ with resources.Get "img/logo.png" }}
+      {{ $logo := .Resize "400x" }}
+      <img
+        src="{{ $logo.RelPermalink }}"
+        alt="The Scaffold Rack"
+        width="{{ $logo.Width }}"
+        height="{{ $logo.Height }}"
+        class="scaffoldrack-intro-logo"
+      />
+    {{ end }}
+
+    {{/* Identity block: name, headline (one-liner bio), divider, site
+         description, social links. Left-aligned to read cleanly beside
+         the logo. */}}
+    <div class="scaffoldrack-intro-text">
+      <h1 class="text-3xl font-extrabold">{{ .Site.Params.author.name }}</h1>
+
+      {{/* Headline — one short line immediately under the name.
+           Content comes from author.headline in params.toml. If you
+           want a longer personal-bio style line, edit that param. */}}
+      {{ with .Site.Params.author.headline }}
+        <h2 class="text-xl text-neutral-500 dark:text-neutral-400">{{ . | markdownify }}</h2>
+      {{ end }}
+
+      {{/* Short divider — soft visual break between "who" and "what". */}}
+      <hr class="scaffoldrack-intro-divider" />
+
+      {{/* Site description — body content of content/_index.md.
+           Plain div (not .prose) so font size matches the identity block. */}}
+      {{ with .Content }}
+        <div>
+          {{ . }}
+        </div>
+      {{ end }}
+
+      {{/* Social links — Congo partial picks up author.links from params.toml */}}
+      {{ if .Site.Params.author.links }}
+        <div class="mt-4 scaffoldrack-intro-links">
+          {{ partial "author-links.html" . }}
+        </div>
+      {{ end }}
+    </div>
+
+  </section>
+
+  {{/* Full-width rule separating the intro block from recent posts */}}
+  <hr class="my-8 border-neutral-200 dark:border-neutral-700 clear-both" />
+
+  {{/* Recent posts — count controlled by homepage.recentLimit in params.toml */}}
+  <section>
+    {{ partial "recent-articles.html" . }}
+  </section>
+
+</article>

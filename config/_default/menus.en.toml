@@ -1,0 +1,41 @@
+[[main]]
+  name = "Posts"
+  pageRef = "posts"
+  weight = 10
+
+[[main]]
+  name = "Series"
+  pageRef = "series"
+  weight = 20
+
+[[main]]
+  name = "Tags"
+  pageRef = "tags"
+  weight = 30
+
+[[main]]
+  name = "About"
+  pageRef = "about"
+  weight = 40
+
+# Theme appearance toggle — renders a moon/sun icon that switches
+# between light and dark modes. Congo looks for the `action = "appearance"`
+# parameter and renders the button automatically instead of a normal link.
+#[[main]]
+#  identifier = "appearance"
+#  weight = 99
+#  [main.params]
+#    action = "appearance"
+#    icon = "moon"
+#    showName = false
+
+# Footer menu: kept minimal for now
+[[footer]]
+  name = "RSS"
+  url = "/index.xml"
+  weight = 10
+
+[[footer]]
+  name = "GitHub"
+  url = "https://github.com/scaffoldrack"
+  weight = 20

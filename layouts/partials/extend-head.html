@@ -1,0 +1,23 @@
+{{/*
+  Congo hook: extend-head.html is loaded inside <head> on every page.
+  Use it for analytics, custom fonts, favicon overrides, etc.
+
+  GoatCounter wiring:
+    1. Sign up at https://www.goatcounter.com/ and pick a code (e.g. "scaffoldrack")
+    2. Replace GOATCOUNTER_CODE below with your actual code
+    3. Commit; the script loads on every page in production
+
+  We only load it on production builds (hugo.IsProduction) so local
+  `hugo server` runs don't count as real traffic. This means stats only
+  reflect real deploys via GitHub Actions.
+
+  Privacy notes:
+    - GoatCounter sets no cookies and collects no PII.
+    - The script is defer-loaded so it doesn't block page render.
+    - If you ever want to stop tracking, delete this file. No other changes needed.
+*/}}
+
+{{- if hugo.IsProduction -}}
+<script data-goatcounter="https://thescaffoldrack.goatcounter.com/count"
+	async src="//gc.zgo.at/count.js"></script>
+{{- end -}}

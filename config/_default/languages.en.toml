@@ -1,0 +1,14 @@
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "The Scaffold Rack"
+
+[params]
+  displayName = "EN"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "2 January 2006"
+  description = "A hands-on platform for building and operating a modern homelab — documented publicly at thescaffoldrack.com"
+
+  [params.author]
+    name = "Andrew Krull"
